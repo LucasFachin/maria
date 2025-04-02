@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nosso Encontro 💖</title>
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffe4e1;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 400px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin: auto;
+        }
+        button {
+            background-color: #ff69b4;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #ff1493;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>esse querido site feito pelo lucas so tem permissão para a maria clara.</h2>
+        <label for="question2">você e a maria clara?</label>
+        <select id="question2">
+            <option value="0"></option>
+            <option value="sim">Sim</option>
+            <option value="nao">Não</option>
+        </select>
+        <h3>Escolha um dia para nosso encontro! 💕</h3>
+        <form id="quizForm">
+            <label for="date">Selecione a data:</label>
+            <input type="date" id="date" required>
+            <br><br>
+            <label for="question1">Qual o melhor tipo de encontro?</label>
+            <select id="question1">
+                <option value="cinema">Cinema 🍿</option>
+                <option value="jantar">Jantar 🍽️</option>
+                <option value="passeio">Passeio ao ar livre 🌳</option>
+            </select>
+            <br><br>
+            <button type="button" onclick="enviarRespostas()">Enviar</button>
+        </form>
+        <p id="resultado"></p>
+    </div>
+    
+    <script>
+        (function(){
+            emailjs.init("Tyh6vUu7cINhbPEn2"); // Pegue no EmailJS
+        })();
+
+        function enviarRespostas() {
+            let data = document.getElementById("date").value;
+            let escolha = document.getElementById("question1").value;
+
+            if (data) {
+                let params = {
+                    to_email: "seuemail@gmail.com",
+                    date: data,
+                    escolha: escolha
+                };
+
+                emailjs.send("service_vhp3s9g", "template_xh8qbvu", params)
+                .then(response => {
+                    document.getElementById("resultado").innerHTML = `Nosso encontro está marcado para <b>${data}</b> e será um <b>${escolha}</b>! 💖`;
+                    alert("Resposta enviada com sucesso!");
+                }, error => {
+                    alert("Erro ao enviar. Tente novamente!");
+                });
+            } else {
+                alert("Por favor, selecione uma data!");
+            }
+        }
+    </script>
+</body>
+</html>
